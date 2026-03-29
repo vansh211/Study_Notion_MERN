@@ -23,7 +23,7 @@ const CourseSchema = new mongoose.Schema({
     }],
     ratingAndReviews :[{
         type : mongoose.Schema.Types.ObjectId,
-        ref : "RatingAndReviews"
+        ref : "RatingAndReview"
     }],
     price : {
         type : Number
@@ -33,7 +33,7 @@ const CourseSchema = new mongoose.Schema({
     },
     tag : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : "Tags"
+        ref : "Tag"
     },
     studentsEnrolled : {
         type : mongoose.Schema.Types.ObjectId,
