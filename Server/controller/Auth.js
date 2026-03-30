@@ -182,13 +182,13 @@ exports.login = async(req, res) => {
             const payload = {
                 email : checkUser.email,
                 id : checkUser._id,
-                role : checkUser.role
+                accountType : checkUser.accountType
             }
             const token = jwt.sign(payload, process.env.JWT_SECRET, {
                 expiresIn: "2h"
             })
-            user.token = token;
-            user.password = undefined
+            checkUser.token = token;
+            checkUser.password = undefined
     
             // create cookie ans respone send
     
@@ -198,7 +198,7 @@ exports.login = async(req, res) => {
             }
             res.cookie("token", token, options).status(200).json({
                 success : true,
-                user,
+                checkUser,
                 token,
                 message : "logged In successflly "
             })
