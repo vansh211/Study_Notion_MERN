@@ -1,48 +1,60 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose")
 
-const CourseSchema = new mongoose.Schema({
-    CourseName : {
-        type : String,
-        trim : true
+// Define the Courses schema
+const coursesSchema = new mongoose.Schema({
+  courseName: { type: String },
+  courseDescription: { type: String },
+  instructor: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "user",
+  },
+  whatYouWillLearn: {
+    type: String,
+  },
+  courseContent: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Section",
     },
-    courseDescription : {
-        type : String,
-        trim : true
+  ],
+  ratingAndReviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "RatingAndReview",
     },
-    instructor : {
-        type : mongoose.Schema.Types.ObjectId,
-        type : true,
-        ref : "User"
+  ],
+  price: {
+    type: Number,
+  },
+  thumbnail: {
+    type: String,
+  },
+  tag: {
+    type: [String],
+    required: true,
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    // required: true,
+    ref: "Category",
+  },
+  studentsEnroled: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "user",
     },
-    whatYouWillLearn : {
-        type : String,
-    },
-    courseContent : [{
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "Section"
-    }],
-    ratingAndReviews :[{
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "RatingAndReview"
-    }],
-    price : {
-        type : Number
-    },
-    thumbNail : {
-        type : String 
-    },
-    tag : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "Tag"
-    },
-    studentsEnrolled : {
-        type : mongoose.Schema.Types.ObjectId,
-        required : true,
-        ref : "User"
-    }
-
+  ],
+  instructions: {
+    type: [String],
+  },
+  status: {
+    type: String,
+    enum: ["Draft", "Published"],
+  },
+  createdAt: { type: Date, default: Date.now },
 })
- 
-module.exports = new mongoose.model("Course", CourseSchema);
 
-
+// Export the Courses model
+module.exports = mongoose.model("Course", coursesSchema)
